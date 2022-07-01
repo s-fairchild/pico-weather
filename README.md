@@ -6,38 +6,35 @@
   
 Anyone interested in Programming the Raspberry Pi Pico in Tinygo, more specifically for weather data collection.
   
-![Raspberry Pi](/images/COLOUR-Raspberry-Pi-Symbol-Registered.png)
-  - Those interested in Tinygo!\
-  ![Tinygo Gopher](/images/tinygo-logo.png)
+
+<img src="https://www.raspberrypi.com/app/uploads/2020/06/raspberrry_pi_logo.png" width=299></img>
+  ![Tinygo Gopher](https://tinygo.org/images/tinygo-logo.png)
+  - Those interested in Tinygo!
     + https://tinygo.org
     + https://github.com/tinygo-org
-    + [Tinygo Compiler](https://github.com/tinygo-org/tinygo)
+    + https://github.com/tinygo-org/tinygo
 
 ### Hardware wiring and sensors used
-[SparkFun Weather Meter Kit SEN-15901](https://www.sparkfun.com/products/15901)
+[SparkFun Weather Meter Kit SEN-15901](https://www.sparkfun.com/products/15901)<br>
+![Sparkfun Weather Meter Kit](https://cdn.sparkfun.com//assets/parts/1/4/5/3/9/15901-Weather_Meter-02.jpg)
   
-![Weather Kit](/images/15901-Weather_Meter-02.jpg)
   - [Assembly Guide](https://learn.sparkfun.com/tutorials/weather-meter-hookup-guide)
   - [Sensors Datasheet](https://cdn.sparkfun.com/assets/d/1/e/0/6/DS-15901-Weather_Meter.pdf)
 
-[Raspberry Pi Pico](https://www.raspberrypi.com/products/raspberry-pi-pico/)
-
-![Raspberry Pi Pico](/images/pico-rp2040.webp)
+[Raspberry Pi Pico](https://www.raspberrypi.com/products/raspberry-pi-pico/)<br>
+<img src="images/pico-rp2040.webp" width=600 height=500></img>
   - [Learn More](https://www.raspberrypi.com/documentation/microcontrollers/)
 
-[Bosche BME280](https://www.bosch-sensortec.com/products/environmental-sensors/humidity-sensors-bme280/)
-
-![BME280](/images/bme280_chip.jpg)
+[Bosche BME280](https://www.bosch-sensortec.com/products/environmental-sensors/humidity-sensors-bme280/)<br>
+<img src="images/bme280_chip.jpg" width=600 height=600></img>
 
 #### Hardware planned for future inclusion
-[SunFounder RTC PCF8563](https://www.sunfounder.com/products/rtc-nao-sensor)
-  
+[SunFounder RTC PCF8563](https://www.sunfounder.com/products/rtc-nao-sensor)<br>
 ![Sunfounder PCF8563](/images/PCF8563.webp)
 
 [SSD1306 Amazon](https://www.amazon.com/UCTRONICS-SSD1306-Self-Luminous-Display-Raspberry/dp/B072Q2X2LL/ref=sr_1_5?keywords=SSD1306&qid=1656624682&sr=8-5)
-[SSD1306 Datasheet](https://cdn-shop.adafruit.com/datasheets/SSD1306.pdf)
-  
-![OLED Display](/images/SSD1306.jpg)
+[SSD1306 Datasheet](https://cdn-shop.adafruit.com/datasheets/SSD1306.pdf)<br>
+<img src="images/SSD1306.jpg" width=600 height=600>
 
 ### Usage
 #### If you are not using a picoprobe  
