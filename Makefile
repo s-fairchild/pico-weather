@@ -15,7 +15,7 @@ release: gochecks
 	tinygo build -target=pico -o build/release -serial=uart
 
 run: release
-	openocd -s ~/src/pico/openocd/tcl/ -f interface/picoprobe.cfg -f target/rp2040.cfg -c "program build/release verify reset exit"
+	scripts/launch_openocd.sh
 
-serialterm: debugbuild
-	minicom -D /dev/ttyACM0 -b 115200
+terminal:
+	if [ -a "/dev/ttyACM0" ]; then minicom -D /dev/ttyACM0 -b 115200; else echo "No device /dev/ttyACM0 found"; fi
