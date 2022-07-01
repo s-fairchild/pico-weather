@@ -14,7 +14,7 @@ debugbuild: gochecks
 release: gochecks
 	tinygo build -target=pico -o build/release -serial=uart
 
-run: release
+flash: release
 	scripts/launch_openocd.sh
 
 terminal:

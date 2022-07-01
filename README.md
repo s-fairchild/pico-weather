@@ -46,7 +46,9 @@ Anyone interested in Programming the Raspberry Pi Pico in Tinygo, more specifica
 * build and install openocd from source
   - For Fedora users, run `setup/build_install_openocd.sh`
 * Debian/Ubuntu users
-  - See the [Getting started with Raspberry Pi Pico](https://datasheets.raspberrypi.com/pico/getting-started-with-pico.pdf) for directions to build and install openocd
+  - See the [Getting started with Raspberry Pi Pico](https://datasheets.raspberrypi.com/pico/getting-started-with-pico.pdf) for directions to build and install openocd<br>
+
+**[See this guide to run openocd without Root privileges](https://elinux.org/Accessing_Devices_without_Sudo)**
 
 ### TODO
 1. Add anemometer support

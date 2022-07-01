@@ -1,10 +1,39 @@
 #!/bin/bash
 
-launch() {
-    openocd -s ~/src/pico/openocd/tcl/ -f interface/picoprobe.cfg -f target/rp2040.cfg -c "program build/release verify reset exit"
+# repoCheck Finds the openocd repo path if this script is ran with sudo
+homeCheck() {
+
+    if [[ $UID -eq 0 ]]; then
+        echo "/home/$SUDO_USER"
+    else
+        echo $HOME
+    fi
 }
 
-if [[ ! -d $HOME/src/pico/openocd/tcl/ ]]; then
+home="$(homeCheck)"
+buildPath="${home}/go/src/github.com/pico-weather/build/release"
+
+launchOpenocd() {
+    sudo openocd -s ~/src/pico/openocd/tcl/ -f interface/picoprobe.cfg -f target/rp2040.cfg -c "program ${buildPath} verify reset exit"
+}
+
+launchMinicom() {
+
+    local termDev
+    termDev="/dev/ttyACM0"
+	if [[ -a $termDev ]]; then
+        minicom -D $termDev -b 115200
+    else
+        echo "No device $termDev found"
+    fi
+}
+
+
+repoPath="${home}/src/pico/openocd"
+if [[ ! -d $repoPath ]]; then
     scripts/build_install_openocd.sh
 fi
-launch
+
+if launchOpenocd; then
+    launchMinicom
+fi
