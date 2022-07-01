@@ -37,10 +37,11 @@ Anyone interested in Programming the Raspberry Pi Pico in Tinygo, more specifica
 <img src="images/SSD1306.jpg" width=600 height=600>
 
 ### Usage
-#### If you are not using a picoprobe  
+#### If you are not using a picoprobe
 1. `make release`
 1. Plug in Pico
 1. `cp build/release /run/media/$USER/RPI-RP2/`
+#### With picoprobe
 #### To debug and load software via openocd
 * build and install openocd from source
   - For Fedora users, run `setup/build_install_openocd.sh`
@@ -48,11 +49,11 @@ Anyone interested in Programming the Raspberry Pi Pico in Tinygo, more specifica
   - See the [Getting started with Raspberry Pi Pico](https://datasheets.raspberrypi.com/pico/getting-started-with-pico.pdf) for directions to build and install openocd
 
 ### TODO
-1. Add anometer support
+1. Add anemometer support
   - Requires multicore support to monitor two interrupts at the same time.\
     I'm looking into using the C/C++ SDK's multicore APIs and CGO to use 2nd core\
     See [Tinygo issue 2446](https://github.com/tinygo-org/tinygo/issues/2446)
-1. Setup reciever repository to store and transmit data
+1. Setup receiver repository to store and transmit data
 
 ### Inspiration
   - My desire to learn more about embedded electronics and Go
