@@ -2,7 +2,9 @@ ONESHELL:
 SHELL = /bin/bash
 
 easyjson:
-	easyjson -omit_empty -noformat types/
+	if [[ types/types.go -nt types/types_easyjson.go ]]; then \
+		easyjson -omit_empty -noformat types/; \
+	fi
 
 gochecks: easyjson
 	go mod tidy
@@ -18,4 +20,8 @@ flash: release
 	scripts/launch_openocd.sh
 
 terminal:
-	if [ -a "/dev/ttyACM0" ]; then minicom -D /dev/ttyACM0 -b 115200; else echo "No device /dev/ttyACM0 found"; fi
+	if [ -a "/dev/ttyACM0" ]; then \
+		minicom -D /dev/ttyACM0 -b 115200; \
+	else \
+		echo "No device /dev/ttyACM0 found"; \
+	fi
