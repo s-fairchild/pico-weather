@@ -16,7 +16,7 @@ func main() {
 
 	initUART()
 	initI2c()
-	bme.InitNewBme280()
+	bme.InitNewBme280(m.I2C1)
 	err := bucket.Monitor()
 	if err != nil {
 		fmt.Printf("%v\n", err)
@@ -36,12 +36,12 @@ func main() {
 
 	for true {
 
-		r.Bme280.TempF, err = bme.TempCtoF()
+		time.Sleep(time.Second * 2)
+		r.Bme280.TempF, err = bme.ReadTempF()
 		if err != nil {
 			println(err)
 		} else {
-			r.Bme280.TempF, err = bme.TempCtoF()
-			fmt.Printf("tempF: %.2f\n", r.Bme280.TempF)
+			fmt.Printf("tempF: %f\n", r.Bme280.TempF)
 		}
 
 		r.Bme280.Humidity, err = bme.HumidityPercent()
@@ -82,7 +82,7 @@ func txJSON(r *t.SensorReadings) {
 	} else if len(txData) == 0 {
 		fmt.Printf("txData has a length of %c, not transmitting.", len(txData))
 	} else {
-		fmt.Printf("Transmitting JSON over UART, length of: %c", len(txData))
+		fmt.Printf("Transmitting JSON over UART, length of: %v", len(txData))
 		m.UART1.Write(txData)
 	}
 }
