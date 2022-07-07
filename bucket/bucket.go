@@ -36,7 +36,7 @@ func Monitor() error {
 func CalculateRain(size float32) (float32) {
 
 	amount := float32(Tips) * size
-	fmt.Printf("Rainfall in inches: %f", amount)
+	fmt.Printf("Rainfall in inches: %v\n", amount)
 	Tips = 0
 	return amount
 }
