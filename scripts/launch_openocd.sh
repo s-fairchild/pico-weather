@@ -14,7 +14,13 @@ home="$(homeCheck)"
 buildPath="${home}/go/src/github.com/pico-weather/build/release"
 
 launchOpenocd() {
-    sudo openocd -s ~/src/pico/openocd/tcl/ -f interface/picoprobe.cfg -f target/rp2040.cfg -c "program ${buildPath} verify reset exit"
+
+    if [[ -v $1 ]] && [[ -z $1 ]]; then
+        binaryFile=$1
+    else
+        binaryFile="${buildPath}"
+    fi
+    sudo openocd -s ~/src/pico/openocd/tcl/ -f interface/picoprobe.cfg -f target/rp2040.cfg -c "program ${binaryFile} verify reset exit"
 }
 
 launchMinicom() {
@@ -34,6 +40,6 @@ if [[ ! -d $repoPath ]]; then
     scripts/build_install_openocd.sh
 fi
 
-if launchOpenocd; then
+if launchOpenocd "$1"; then
     launchMinicom
 fi
