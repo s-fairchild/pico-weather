@@ -10,11 +10,11 @@ gochecks: easyjson
 	go mod tidy
 	go fmt .
 
-debugbuild: gochecks
-	tinygo build -target=pico -o build/debug -opt=1 -serial=uart
-
 release: gochecks
-	tinygo build -target=pico -o build/release -serial=uart
+	build=$$(scripts/go_change_check.sh build/release); \
+	if [ $$build == "true" ]; then \
+		tinygo build -target=pico -o build/release; \
+	fi
 
 flash: release
 	scripts/launch_openocd.sh
