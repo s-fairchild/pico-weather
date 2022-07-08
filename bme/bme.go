@@ -4,6 +4,8 @@ import (
 	"fmt"
 	m "machine"
 
+	"github.com/pico-weather/convert"
+
 	"tinygo.org/x/drivers/bme280"
 )
 
@@ -34,20 +36,11 @@ func ReadTempF() (float32, error) {
 
 	tempC, err := B280.ReadTemperature()
 	// TODO convert to debug log
-	fmt.Printf("Temperature C as int32: %v", tempC)
+	// fmt.Printf("Temperature C as int32: %v", tempC)
 	if err != nil {
 		return 0.0, fmt.Errorf("Failed to read temperature, %v\n", err)
 	}
-	return tempCtoF(tempC), nil
-}
-
-// tempCtoF Converts and returns Celsius in milidegrees to Fahrenheit degrees
-func tempCtoF(tempC int32) (float32) {
-
-	degree := float32(tempC / 1000)
-	tempF := (degree * 1.8) + 32.0
-
-	return tempF
+	return convert.Celsius2Fahrenheit(tempC), nil
 }
 
 func HumidityPercent() (float32, error) {
