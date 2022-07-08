@@ -29,9 +29,9 @@ func main() {
 	}
 
 	var r = &t.SensorReadings{
-		time.Time{},
-		&t.Bme280Readings{},
-		&t.TippingBucket{},
+		Created:  time.Time{},
+		Bme280:   &t.Bme280Readings{},
+		Rainfall: &t.TippingBucket{},
 	}
 
 	for true {
@@ -78,11 +78,11 @@ func txJSON(r *t.SensorReadings) {
 
 	txData, err := r.MarshalJSON()
 	if err != nil {
-		fmt.Printf("Error marshling JSON, %v", err)
+		fmt.Printf("Error marshling JSON, %v\n", err)
 	} else if len(txData) == 0 {
-		fmt.Printf("txData has a length of %c, not transmitting.", len(txData))
+		fmt.Printf("txData has a length of %c, not transmitting.\n", len(txData))
 	} else {
-		fmt.Printf("Transmitting JSON over UART, length of: %v", len(txData))
+		fmt.Printf("Transmitting JSON over UART, length of: %v\n", len(txData))
 		m.UART1.Write(txData)
 	}
 }
@@ -94,9 +94,9 @@ func initUART() {
 	// Text console output
 	err := m.UART0.Configure(m.UARTConfig{})
 	if err != nil {
-		println("Error configuring Serial UART0, %c", err)
+		fmt.Printf("Error configuring Serial UART0, %c\n", err)
 	} else {
-		println("initialized Serial UART0")
+		println("initialized Serial UART0\n")
 	}
 
 	// Data output
@@ -105,7 +105,7 @@ func initUART() {
 		RX: m.UART1_RX_PIN,
 	})
 	if err != nil {
-		println("Error Configuring Serial UART1, %v", err)
+		fmt.Printf("Error Configuring Serial UART1, %v\n", err)
 	} else {
 		println("initialized Serial UART1")
 	}
