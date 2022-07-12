@@ -1,11 +1,13 @@
 package convert
 
 import (
+	"fmt"
 	"testing"
 )
 
 var (
 	likelyTemps = []float32{
+		// 0,
 		32,
 		33.8, // 1 °C
 		35.6,
@@ -48,52 +50,26 @@ var (
 		102.2,
 		104.0,
 	}
-	highTemps = []float32{
-		122.0,
-		140.0,
-		158.0,
-		176.0,
-		194.0,
-		212.0, // 100 °C
-		392.0,
-		572.0,
-		752.0,
-		932.0,
-		1112.0,
-		1292.0,
-		1472.0,
-		1652.0,
-		1832.0,
-	}
 )
 
 func TestCelsius2Fahrenheit(t *testing.T) {
 
-	const (
-		zero = 0
-		parity = -40
-	)
-
-	tempF := Celsius2Fahrenheit(parity)
-	if tempF != parity {
-		t.Fatalf("%v got %v, wants %v", t.Name(), tempF, parity)
+	err := testTempRanges(likelyTemps, 1, t.Name())
+	if err != nil {
+		t.Fatal(err)
 	}
-
-	testTempRanges(likelyTemps, 1)
-	testTempRanges(highTemps, 10)
 }
 
-func testTempRanges(controls []float32, interval int) {
+func testTempRanges(controls []float32, interval int, name string) error {
 
-	t := testing.T{}
-
+	// var startInterval int
 	for i:=0; i<len(likelyTemps); i++ {
 		control := likelyTemps[i]
 		tempF := Celsius2Fahrenheit(int32(i))
-		t.Logf("Comparing %v to %v", int32(i), control)
+		// fmt.Printf("Comparing %v to %v\n", int32(i), control)
 		if tempF != control {
-			t.Fatalf("%v got %v, wants %v", t.Name(), tempF, control)
-			return 
+			return fmt.Errorf("%v got %v, wants %v", name, tempF, control)
 		}
 	}
+	return nil
 }
