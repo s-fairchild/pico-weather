@@ -25,7 +25,7 @@ func main() {
 	}
 	err = an.Monitor()
 	if err != nil {
-		fmt.Printf("%v", err)
+		fmt.Printf("%v\n", err)
 	}
 
 	var r = &t.SensorReadings{
@@ -41,27 +41,27 @@ func main() {
 		if err != nil {
 			println(err)
 		} else {
-			fmt.Printf("tempF: %f\n", r.Bme280.TempF)
+			fmt.Printf("tempF: %2.2f°C\n", r.Bme280.TempF)
 		}
 
 		r.Bme280.Humidity, err = bme.HumidityPercent()
 		if err != nil {
 			println(err)
 		} else {
-			fmt.Printf("humidity: %f\n", r.Bme280.Humidity)
+			fmt.Printf("humidity: %2.2f%%\n", r.Bme280.Humidity)
 		}
 
-		r.Bme280.Pressure, err = bme.PressureInchHg()
+		r.Bme280.Pressure, err = bme.PressureMilliBar()
 		if err != nil {
 			println(err)
 		} else {
-			fmt.Printf("pressure: %2.2f\n", r.Bme280.Pressure)
+			fmt.Printf("pressure: %f mbar\n", r.Bme280.Pressure)
 		}
 
 		// TODO fix multiplication, amount returned is too high
 		r.Rainfall.Inches = bucket.CalculateRain(bucket.BucketSizeInch)
 		if err != nil {
-			fmt.Printf("%v", err)
+			fmt.Printf("%v\n", err)
 		}
 
 		// Time will always start at the beginning of Unix time until a RTC is added

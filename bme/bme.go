@@ -53,20 +53,12 @@ func HumidityPercent() (float32, error) {
 	return float32(h) / 100.0, nil
 }
 
-func PressureInchHg() (float32, error) {
+func PressureMilliBar() (float64, error) {
 
 	p, err := B280.ReadPressure()
 	if err != nil {
 		return 0.0, fmt.Errorf("Failed to read pressure, %v\n", err)
 	}
 
-	return mPAtoinHG(p) / 100000.0, nil
-}
-
-func mPAtoinHG(mPA int32) float32 {
-
-	PA := mPA / 1000
-	inHG := float32(PA) * 3386.3886666667
-
-	return inHG
+	return convert.MilliPA2MilliBar(p), nil
 }

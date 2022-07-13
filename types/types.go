@@ -17,7 +17,7 @@ type TippingBucket struct {
 type Bme280Readings struct {
 	TempF    float32 `json:"tempF"`
 	Humidity float32 `json:"humidity"`
-	Pressure float32 `json:"pressure"`
+	Pressure float64 `json:"pressure"`
 }
 
 const (

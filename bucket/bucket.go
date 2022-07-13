@@ -25,7 +25,7 @@ func Monitor() error {
 		Tips++
 	})
 	if err != nil {
-		return fmt.Errorf("Failed to set interrupt on pin %v, error: %v", string(pin), err)
+		return fmt.Errorf("Failed to set interrupt on pin %v, %v\n", string(pin), err)
 	}
 	
 	return nil

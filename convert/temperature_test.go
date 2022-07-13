@@ -68,7 +68,7 @@ func testTempRanges(controls []float32, interval int, name string) error {
 		tempF := Celsius2Fahrenheit(int32(i))
 		// fmt.Printf("Comparing %v to %v\n", int32(i), control)
 		if tempF != control {
-			return fmt.Errorf("%v got %v, wants %v", name, tempF, control)
+			return fmt.Errorf("%v got %v, expected %v", name, tempF, control)
 		}
 	}
 	return nil
