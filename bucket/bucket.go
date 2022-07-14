@@ -3,14 +3,15 @@ package bucket
 import (
 	m "machine"
 	"fmt"
-)
-
-const (
-	BucketSizeMm = 0.2794
-	BucketSizeInch = 0.011
+	c "github.com/pico-weather/convert"
 )
 
 var Tips uint
+
+func GetRain() float64 {
+
+	return c.CalculateRain(Tips, bucketSize)
+}
 
 // Monitor watches a tipping bucket button and populates the Tips field for each press
 func Monitor() error {
@@ -29,14 +30,4 @@ func Monitor() error {
 	}
 	
 	return nil
-}
-
-// CalculateRain returns rainfall amount by multiplying the number of tips and size, which should be BucketSizeMm or BucketSizeInch.
-// Tips are reset to 0 after.
-func CalculateRain(size float32) (float32) {
-
-	amount := float32(Tips) * size
-	fmt.Printf("Rainfall in inches: %v\n", amount)
-	Tips = 0
-	return amount
 }

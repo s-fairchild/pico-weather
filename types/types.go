@@ -10,7 +10,7 @@ type SensorReadings struct {
 }
 
 type TippingBucket struct {
-	Inches float32 `json:"inches"`
+	Inches float64 `json:"inches"`
 	Milimeteres float32 `json:"milimeters"`
 }
 

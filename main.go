@@ -41,7 +41,7 @@ func main() {
 		if err != nil {
 			println(err)
 		} else {
-			fmt.Printf("tempF: %2.2f°C\n", r.Bme280.TempF)
+			fmt.Printf("tempF: %2.2f°F\n", r.Bme280.TempF)
 		}
 
 		r.Bme280.Humidity, err = bme.HumidityPercent()
@@ -58,8 +58,8 @@ func main() {
 			fmt.Printf("pressure: %f mbar\n", r.Bme280.Pressure)
 		}
 
-		// TODO fix multiplication, amount returned is too high
-		r.Rainfall.Inches = bucket.CalculateRain(bucket.BucketSizeInch)
+		r.Rainfall.Inches = bucket.GetRain()
+		println()
 		if err != nil {
 			fmt.Printf("%v\n", err)
 		}

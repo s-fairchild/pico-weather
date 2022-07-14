@@ -13,7 +13,8 @@ gochecks: easyjson
 release: gochecks
 	build=$$(scripts/go_change_check.sh build/release); \
 	if [ $$build == "true" ]; then \
-		tinygo build -target=pico -o build/release; \
+		tags="-tags bsizeinches"; \
+		tinygo build -target=pico -o build/release $$tags; \
 	fi
 
 flash: release
