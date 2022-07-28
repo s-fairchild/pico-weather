@@ -9,6 +9,7 @@ easyjson:
 gochecks: easyjson
 	go mod tidy
 	go fmt .
+	# go vet fails with tiny go currently
 
 release: gochecks
 	build=$$(scripts/go_change_check.sh build/release); \
