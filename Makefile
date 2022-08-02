@@ -11,7 +11,11 @@ gochecks: easyjson
 	go fmt .
 	# go vet fails with tiny go currently
 
-release: gochecks
+gotests: gochecks
+	testPkgs=$$(find -name *_test.go -printf "%h\n"); \
+	scripts/runUnitTests.sh $$testPkgs
+
+release: gotests
 	build=$$(scripts/go_change_check.sh build/release); \
 	if [ $$build == "true" ]; then \
 		tags="-tags bsizeinches"; \
