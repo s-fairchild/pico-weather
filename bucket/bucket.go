@@ -17,7 +17,9 @@ func GetRain() float64 {
 func Monitor() error {
 
 	pin := m.GP18
-	pin.Configure(m.PinConfig{m.PinInputPullup})
+	pin.Configure(m.PinConfig{
+		Mode: m.PinInputPullup,
+	})
 
 	// PinFalling is required because the tipping bucket has a slow transition from high to low, back to high
 	err := pin.SetInterrupt(m.PinFalling, func(p m.Pin) {

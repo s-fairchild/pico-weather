@@ -10,7 +10,9 @@ var spins int
 func Monitor() error {
 
 	pin := m.GPIO17
-	pin.Configure(m.PinConfig{m.PinInputPullup})
+	pin.Configure(m.PinConfig{
+		Mode: m.PinInputPullup,
+	})
 
 	err := pin.SetInterrupt(m.PinLevelLow, func (p m.Pin)  {
 		spins++
