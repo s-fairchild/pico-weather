@@ -3,14 +3,13 @@ package bucket
 import (
 	m "machine"
 	"fmt"
-	c "github.com/pico-weather/convert"
 )
 
 var Tips uint
 
 func GetRain() float64 {
 
-	return c.CalculateRain(Tips, bucketSize)
+	return calculateRain(Tips, bucketSize)
 }
 
 // Monitor watches a tipping bucket button and populates the Tips field for each press

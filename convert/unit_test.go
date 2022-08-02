@@ -59,16 +59,6 @@ func TestMilliPa2MilliBar(t *testing.T) {
 
 }
 
-func TestCalculateRain(t *testing.T) {
-
-	bucketSizemm := 0.2794
-	expect := 2.2352
-	n := CalculateRain(8, bucketSizemm)
-	if n != expect {
-		t.Fatalf("%v expected %v got %v", t.Name(), expect, n)
-	}
-}
-
 
 func TestCelsius2Fahrenheit(t *testing.T) {
 
