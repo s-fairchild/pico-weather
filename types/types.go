@@ -22,5 +22,5 @@ type Bme280Readings struct {
 
 const (
 	YYYYMMDD = "2022-06-01"
-	TxInterval = time.Second * 10
+	TxInterval = time.Second * 5
 )
