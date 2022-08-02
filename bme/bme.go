@@ -20,10 +20,7 @@ func InitNewBme280(i2cDev *m.I2C) {
 
 	B280 = bme280.New(i2cDev)
 	B280.Address = uint16(0x76)
-	err := B280.Configure()
-	if err != nil {
-		println("Failed to configure bme280: ", err)
-	}
+	B280.Configure()
 
 	if B280.Connected() {
 		println("initialized bme280")
