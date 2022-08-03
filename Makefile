@@ -12,8 +12,9 @@ gochecks: easyjson
 	# go vet fails with tiny go currently
 
 gotests: gochecks
-	testPkgs=$$(find -name *_test.go -printf "%h\n"); \
-	scripts/runUnitTests.sh $$testPkgs
+	# testPkgs=$$(find -name *_test.go -printf "%h\n"); \
+	pkgsWithTests=("$$(find ./ -name '*_test.go' -printf "%h\n" | sort -ub)"); \
+	scripts/runUnitTests.sh $$pkgsWithTests
 
 release: gotests
 	build=$$(scripts/go_change_check.sh build/release); \

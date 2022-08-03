@@ -36,7 +36,6 @@ func main() {
 
 	for true {
 
-		time.Sleep(time.Second * 2)
 		r.Bme280.TempF, err = bme.ReadTempF()
 		if err != nil {
 			println(err)
