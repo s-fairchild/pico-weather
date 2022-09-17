@@ -4,7 +4,7 @@ import (
 	"fmt"
 	m "machine"
 
-	"github.com/pico-weather/convert"
+	"github.com/s-fairchild/pico-weather/convert"
 
 	"tinygo.org/x/drivers/bme280"
 )

@@ -1,4 +1,4 @@
-module github.com/pico-weather
+module github.com/s-fairchild/pico-weather
 
 go 1.18
 

@@ -6,10 +6,10 @@ import (
 
 	m "machine"
 
-	an "github.com/pico-weather/anemometer"
-	"github.com/pico-weather/bme"
-	"github.com/pico-weather/bucket"
-	t "github.com/pico-weather/types"
+	an "github.com/s-fairchild/pico-weather/anemometer"
+	"github.com/s-fairchild/pico-weather/bme"
+	"github.com/s-fairchild/pico-weather/bucket"
+	t "github.com/s-fairchild/pico-weather/types"
 )
 
 func main() {

@@ -12,11 +12,13 @@ gochecks: easyjson
 	# go vet fails with tiny go currently
 
 gotests: gochecks
-	# testPkgs=$$(find -name *_test.go -printf "%h\n"); \
 	pkgsWithTests=("$$(find ./ -name '*_test.go' -printf "%h\n" | sort -ub)"); \
 	scripts/runUnitTests.sh $$pkgsWithTests
 
 release: gotests
+	if [[ ! -d build ]]; then \
+		mkdir build ;\
+	fi ;\
 	build=$$(scripts/go_change_check.sh build/release); \
 	if [ $$build == "true" ]; then \
 		tags="-tags bsizeinches"; \

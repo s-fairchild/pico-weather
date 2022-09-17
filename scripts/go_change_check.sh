@@ -11,7 +11,7 @@ goFilesChangeCheck() {
     local build
     build="false"
     for f in "${goFiles[@]}"; do
-        if [ $f -nt $binaryFile ]; then
+        if [[ $f -nt $binaryFile ]]; then
             build="true"
             break 2
         fi
