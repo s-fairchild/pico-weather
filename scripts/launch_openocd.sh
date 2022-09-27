@@ -1,26 +1,35 @@
 #!/bin/bash
 
-# repoCheck Finds the openocd repo path if this script is ran with sudo
+set -o errexit
+
+main() {
+
+    realHome="$(homeCheck)"
+    userInput="$1"
+    binaryFile="${userInput:="build/release"}"
+    repoPath="${realHome}/src/pico/openocd"
+    if [[ ! -d $repoPath ]]; then
+        scripts/build_install_openocd.sh
+    fi
+
+    if launchOpenocd "$binaryFile"; then
+        launchMinicom "$binaryFile"
+    fi
+}
+
+# homeCheck Finds the openocd repo path if this script is ran with sudo
 homeCheck() {
 
     if [[ $UID -eq 0 ]]; then
         echo "/home/$SUDO_USER"
     else
-        echo $HOME
+        echo "$HOME"
     fi
 }
 
-home="$(homeCheck)"
-buildPath="${home}/go/src/github.com/pico-weather/build/release"
-
 launchOpenocd() {
 
-    if [[ -v $1 ]] && [[ -z $1 ]]; then
-        binaryFile=$1
-    else
-        binaryFile="${buildPath}"
-    fi
-    sudo openocd -s ~/src/pico/openocd/tcl/ -f interface/picoprobe.cfg -f target/rp2040.cfg -c "program ${binaryFile} verify reset exit"
+    sudo openocd -s "${realHome}/src/pico/openocd/tcl/" -f interface/picoprobe.cfg -f target/rp2040.cfg -c "program ${1} verify reset exit"
 }
 
 launchMinicom() {
@@ -34,12 +43,4 @@ launchMinicom() {
     fi
 }
 
-
-repoPath="${home}/src/pico/openocd"
-if [[ ! -d $repoPath ]]; then
-    scripts/build_install_openocd.sh
-fi
-
-if launchOpenocd "$1"; then
-    launchMinicom
-fi
+main "$1"
