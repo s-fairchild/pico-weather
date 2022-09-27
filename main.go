@@ -36,11 +36,11 @@ func main() {
 
 	for true {
 
-		r.Bme280.TempF, err = bme.ReadTempF()
+		r.Bme280.TempF, err = bme.ReadTempF("f")
 		if err != nil {
 			println(err)
 		} else {
-			fmt.Printf("tempF: %2.2f°F\n", r.Bme280.TempF)
+			fmt.Printf("temperature: %2.2f°F\n", r.Bme280.TempF)
 		}
 
 		r.Bme280.Humidity, err = bme.HumidityPercent()
@@ -54,26 +54,27 @@ func main() {
 		if err != nil {
 			println(err)
 		} else {
-			fmt.Printf("pressure: %f mbar\n", r.Bme280.Pressure)
+			fmt.Printf("pressure: %.2f mbar\n", r.Bme280.Pressure)
 		}
 
 		r.Rainfall.Inches = bucket.GetRain()
-		println()
 		if err != nil {
-			fmt.Printf("%v\n", err)
+			println("%v\n", err)
+		} else {
+			fmt.Printf("rainfall: %.f\n", r.Rainfall.Inches)
 		}
 
 		// Time will always start at the beginning of Unix time until a RTC is added
 		// I have a Sunfounder RTC PCF8563 I plan on testing
 		r.Created = time.Now()
-		txJSON(r)
+		txSerialData(r)
 
 		time.Sleep(t.TxInterval)
 	}
 }
 
-// txJSON marshals and writes to UART1
-func txJSON(r *t.SensorReadings) {
+// txSerialData marshals and writes to UART1
+func txSerialData(r *t.SensorReadings) {
 
 	txData, err := r.MarshalJSON()
 	if err != nil {
@@ -108,7 +109,6 @@ func initUART() {
 	} else {
 		println("initialized Serial UART1")
 	}
-	//m.UART1.SetFormat(1, 8, m.ParityNone)
 }
 
 func initI2c() {

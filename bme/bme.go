@@ -10,7 +10,6 @@ import (
 )
 
 var (
-	// B280 = bme280.New(m.I2C1)
 	B280 = bme280.Device{}
 )
 
@@ -29,15 +28,19 @@ func InitNewBme280(i2cDev *m.I2C) {
 	}
 }
 
-func ReadTempF() (float32, error) {
+func ReadTempF(unit string) (float32, error) {
 
-	tempC, err := B280.ReadTemperature()
-	// TODO convert to debug log
-	// fmt.Printf("Temperature C as int32: %v", tempC)
+	temp, err := B280.ReadTemperature()
+	temp = temp / 1000
 	if err != nil {
 		return 0.0, fmt.Errorf("Failed to read temperature, %v\n", err)
 	}
-	return convert.Celsius2Fahrenheit(tempC), nil
+	if unit == "f" {
+		return convert.Celsius2Fahrenheit(temp), nil
+	} else if unit == "c" {
+		return float32(temp), nil
+	}
+	return 0.0, fmt.Errorf("Something went wrong, Unable to calculate temperature")
 }
 
 func HumidityPercent() (float32, error) {

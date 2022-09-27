@@ -22,7 +22,7 @@ release: gotests
 	build=$$(scripts/go_change_check.sh build/release); \
 	if [ $$build == "true" ]; then \
 		tags="-tags bsizeinches"; \
-		tinygo build -target=pico -o build/release $$tags; \
+		tinygo build -target=pico -serial=uart -o build/release $$tags; \
 	fi
 
 flash: release
