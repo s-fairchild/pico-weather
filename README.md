@@ -51,11 +51,12 @@ Anyone interested in Programming the Raspberry Pi Pico in Tinygo, more specifica
 **[See this guide to run openocd without Root privileges](https://elinux.org/Accessing_Devices_without_Sudo)**
 
 ### TODO
-1. Add anemometer support
+1. Configure build tags to enable/disable unused packages as needed
+2. Add anemometer support
   - Requires multicore support to monitor two interrupts at the same time.\
     I'm looking into using the C/C++ SDK's multicore APIs and CGO to use 2nd core\
     See [Tinygo issue 2446](https://github.com/tinygo-org/tinygo/issues/2446)
-1. Setup receiver repository to store and transmit data
+3. Setup receiver repository to store and transmit data
 
 ### Inspiration
   - My desire to learn more about embedded electronics and Go
