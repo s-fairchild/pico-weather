@@ -9,6 +9,7 @@ import (
 	an "github.com/s-fairchild/pico-weather/anemometer"
 	"github.com/s-fairchild/pico-weather/bme"
 	"github.com/s-fairchild/pico-weather/bucket"
+	"github.com/s-fairchild/pico-weather/oled"
 	t "github.com/s-fairchild/pico-weather/types"
 )
 
@@ -25,7 +26,12 @@ func main() {
 	}
 	err = an.Monitor()
 	if err != nil {
-		fmt.Printf("%v\n", err)
+		println(err)
+	}
+
+	display, err := oled.InitDisplay()
+	if err != nil {
+		println(err)
 	}
 
 	var r = &t.SensorReadings{
@@ -36,41 +42,73 @@ func main() {
 
 	for true {
 
-		r.Bme280.TempF, err = bme.ReadTempF("f")
+		textLines := []string{}
+		// Time will always start at the beginning of Unix time until a RTC is added
+		r.Created = time.Now()
+		clockStr := elapsedClock(r.Created)
+		textLines = append(textLines, clockStr)
+
+		var tempUnit = "F"
+		r.Bme280.TempF, err = bme.ReadTempF(tempUnit)
 		if err != nil {
 			println(err)
 		} else {
-			fmt.Printf("temperature: %2.2f°F\n", r.Bme280.TempF)
+			tempStr := fmt.Sprintf("Temperature: %2.2f°%v\n", r.Bme280.TempF, tempUnit)
+			println(tempStr)
+			textLines = append(textLines, tempStr)
 		}
 
 		r.Bme280.Humidity, err = bme.HumidityPercent()
 		if err != nil {
 			println(err)
 		} else {
-			fmt.Printf("humidity: %2.2f%%\n", r.Bme280.Humidity)
+			humidityStr := fmt.Sprintf("Humidity: %2.2f%%\n", r.Bme280.Humidity)
+			println(humidityStr)
+			textLines = append(textLines, humidityStr)
 		}
 
 		r.Bme280.Pressure, err = bme.PressureMilliBar()
 		if err != nil {
 			println(err)
 		} else {
-			fmt.Printf("pressure: %.2f mbar\n", r.Bme280.Pressure)
+			pressureStr := fmt.Sprintf("Pressure: %.2f mbar\n", r.Bme280.Pressure)
+			println(pressureStr)
+			textLines = append(textLines, pressureStr)
 		}
 
 		r.Rainfall.Inches = bucket.GetRain()
 		if err != nil {
 			println("%v\n", err)
 		} else {
-			fmt.Printf("rainfall: %.f\n", r.Rainfall.Inches)
+			rainStr := fmt.Sprintf("Rainfall: %.f\n", r.Rainfall.Inches)
+			println(rainStr)
+			if r.Rainfall.Inches != 0 {
+				textLines = append(textLines, rainStr)
+			}
 		}
 
-		// Time will always start at the beginning of Unix time until a RTC is added
-		// I have a Sunfounder RTC PCF8563 I plan on testing
-		r.Created = time.Now()
+		println(executionTime(r.Created))
+
+		err = oled.WriteText(display, textLines)
+		if err != nil {
+			println(err)
+		}
+
 		txSerialData(r)
 
 		time.Sleep(t.TxInterval)
 	}
+}
+
+func elapsedClock(t time.Time) string {
+
+	hour, min, sec := t.Clock()
+	return fmt.Sprintf("Time elapsed: %v:%v:%v", hour, min, sec)
+}
+
+func executionTime(then time.Time) string {
+
+	return fmt.Sprintf("Calculation time:  %v", time.Since(then))
 }
 
 // txSerialData marshals and writes to UART1

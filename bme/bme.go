@@ -35,9 +35,9 @@ func ReadTempF(unit string) (float32, error) {
 	if err != nil {
 		return 0.0, fmt.Errorf("Failed to read temperature, %v\n", err)
 	}
-	if unit == "f" {
+	if unit == "f" || unit == "F" {
 		return convert.Celsius2Fahrenheit(temp), nil
-	} else if unit == "c" {
+	} else if unit == "c" || unit == "C" {
 		return float32(temp), nil
 	}
 	return 0.0, fmt.Errorf("Something went wrong, Unable to calculate temperature")
