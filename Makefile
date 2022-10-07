@@ -26,7 +26,7 @@ release: gotests
 	fi
 
 flash: release
-	scripts/launch_openocd.sh
+	scripts/launch_openocd.sh build/release
 
 terminal:
 	if [ -a "/dev/ttyACM0" ]; then \

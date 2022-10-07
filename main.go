@@ -10,6 +10,7 @@ import (
 	"github.com/s-fairchild/pico-weather/bme"
 	"github.com/s-fairchild/pico-weather/bucket"
 	"github.com/s-fairchild/pico-weather/oled"
+	"github.com/s-fairchild/pico-weather/rtc"
 	t "github.com/s-fairchild/pico-weather/types"
 )
 
@@ -88,6 +89,19 @@ func main() {
 		}
 
 		println(executionTime(r.Created))
+
+		rt, err := rtc.InitRtc(m.GP14, m.GP15)
+		if err != nil {
+			println(err)
+		}
+
+		timeStr, err := rtc.FormatTime(&rt)
+		if err != nil {
+			println(err)
+		}
+		fmt.Printf("RTC: %v\n", timeStr)
+
+		textLines = append(textLines, timeStr)
 
 		err = oled.WriteText(display, textLines)
 		if err != nil {
