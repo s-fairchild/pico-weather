@@ -77,6 +77,6 @@ func main() {
 		comms.TxSerialData(r)
 
 		println(clock.ExecutionTime(r.Created))
-		time.Sleep(t.TxInterval)
+		time.Sleep(clock.TxInterval)
 	}
 }

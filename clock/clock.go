@@ -9,6 +9,8 @@ import (
 	"tinygo.org/x/drivers/i2csoft"
 )
 
+var TxInterval = time.Second * 5
+
 func SetTime(rtc *ds1307.Device) {
 
 	rtc.SetTime(time.Date(2022, 10, 7, 18, 15, 12, 0, time.UTC))

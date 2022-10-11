@@ -19,8 +19,3 @@ type Bme280Readings struct {
 	Humidity float32 `json:"humidity"`
 	Pressure float64 `json:"pressure"`
 }
-
-const (
-	YYYYMMDD = "2022-06-01"
-	TxInterval = time.Second * 5
-)
