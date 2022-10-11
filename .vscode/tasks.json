@@ -4,9 +4,9 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "debugbuild",
+            "label": "release",
             "type": "shell",
-            "command": "make debugbuild",
+            "command": "make release",
             "presentation": {
                 "echo": false,
                 "reveal": "silent",

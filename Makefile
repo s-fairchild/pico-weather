@@ -15,14 +15,16 @@ gotests: gochecks
 	pkgsWithTests=("$$(find ./ -name '*_test.go' -printf "%h\n" | sort -ub)"); \
 	scripts/runUnitTests.sh $$pkgsWithTests
 
+# TODO add -no-debug and make a debug target
 release: gotests
+	# All tags: bsizeinches bucket oled bme anemometer
 	if [[ ! -d build ]]; then \
 		mkdir build ;\
 	fi ;\
 	build=$$(scripts/go_change_check.sh build/release); \
 	if [ $$build == "true" ]; then \
-		tags="-tags bsizeinches"; \
-		tinygo build -target=pico -serial=uart -o build/release $$tags; \
+		tags="bsizeinches bucket oled bme"; \
+		tinygo build -target=pico -serial=uart -o build/release -tags "$$tags"; \
 	fi
 
 flash: release

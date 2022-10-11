@@ -6,16 +6,16 @@ import "time"
 type SensorReadings struct {
 	Created  time.Time `json:"created"`
 	Bme280	*Bme280Readings
-	Rainfall *TippingBucket
+	Rain *TippingBucket
 }
 
 type TippingBucket struct {
-	Inches float64 `json:"inches"`
-	Milimeteres float32 `json:"milimeters"`
+	Amount float64 `json:"inches"`
+	// Millimeters float64 `json:"milometers"`
 }
 
 type Bme280Readings struct {
-	TempF    float32 `json:"tempF"`
+	Temp    float32 `json:"tempF"`
 	Humidity float32 `json:"humidity"`
 	Pressure float64 `json:"pressure"`
 }

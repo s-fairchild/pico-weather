@@ -1,3 +1,5 @@
+//go:build anemometer
+
 package anemometer
 
 import (
@@ -6,6 +8,8 @@ import (
 )
 
 var spins int
+const Enabled = true
+var Initialized bool
 
 func Monitor() error {
 
@@ -16,7 +20,6 @@ func Monitor() error {
 
 	err := pin.SetInterrupt(m.PinLevelLow, func (p m.Pin)  {
 		spins++
-		fmt.Printf("Spins happened! Spins count: %d", spins)
 	})
 	if err != nil {
 		return fmt.Errorf("Failed to set interrupt on pin %v, error: %v", pin, err)

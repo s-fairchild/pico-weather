@@ -1,3 +1,5 @@
+//go:build bucket
+
 package bucket
 
 import (
@@ -5,7 +7,8 @@ import (
 	"fmt"
 )
 
-var Tips uint
+const Enabled bool = true
+var Initialized bool
 
 func GetRain() float64 {
 

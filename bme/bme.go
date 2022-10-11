@@ -1,3 +1,5 @@
+//go:build bme
+
 package bme
 
 import (
@@ -5,32 +7,55 @@ import (
 	m "machine"
 
 	"github.com/s-fairchild/pico-weather/convert"
+	t "github.com/s-fairchild/pico-weather/types"
 
 	"tinygo.org/x/drivers/bme280"
 )
 
-var (
-	B280 = bme280.Device{}
-)
+var BmeDev = bme280.Device{}
+var Initialized bool
+const Enabled = true
+
+func GetAllReadings(unit string) (*t.Bme280Readings, error) {
+
+	r := &t.Bme280Readings{}
+	var err error
+	r.Pressure, err = PressureMilliBar()
+	if err != nil {
+		return r, err
+	}
+
+	r.Temp, err = ReadTempF(unit)
+	if err != nil {
+		return r, err
+	} 
+
+	r.Humidity, err = HumidityPercent()
+	if err != nil {
+		return r, err
+	}
+
+	return r, nil
+}
 
 // InitNewBme280 configures and returns a new bme280 object
 // The I2C bus must be configured already
-func InitNewBme280(i2cDev *m.I2C) {
+func InitNewBme280(i2cDev *m.I2C) error {
 
-	B280 = bme280.New(i2cDev)
-	B280.Address = uint16(0x76)
-	B280.Configure()
+	BmeDev = bme280.New(i2cDev)
+	BmeDev.Address = uint16(0x76)
+	BmeDev.Configure()
 
-	if B280.Connected() {
-		println("initialized bme280")
+	if BmeDev.Connected() {
+		return nil
 	} else {
-		println("Failed to connect to bme280")
+		return fmt.Errorf("Failed to connect to bme280")
 	}
 }
 
 func ReadTempF(unit string) (float32, error) {
 
-	temp, err := B280.ReadTemperature()
+	temp, err := BmeDev.ReadTemperature()
 	temp = temp / 1000
 	if err != nil {
 		return 0.0, fmt.Errorf("Failed to read temperature, %v\n", err)
@@ -45,7 +70,7 @@ func ReadTempF(unit string) (float32, error) {
 
 func HumidityPercent() (float32, error) {
 
-	h, err := B280.ReadHumidity()
+	h, err := BmeDev.ReadHumidity()
 	if err != nil {
 		return 0.0, fmt.Errorf("Failed to read humidity, %v\n", err)
 	}
@@ -55,7 +80,7 @@ func HumidityPercent() (float32, error) {
 
 func PressureMilliBar() (float64, error) {
 
-	p, err := B280.ReadPressure()
+	p, err := BmeDev.ReadPressure()
 	if err != nil {
 		return 0.0, fmt.Errorf("Failed to read pressure, %v\n", err)
 	}

@@ -1,6 +1,6 @@
 {
     "go.toolsEnvVars": {
         "GOROOT": "/home/steven/.cache/tinygo/goroot-774badcfd41923649de99c24683ef142917c91f1ae50965c1e7e869dabde0f86",
-        "GOFLAGS": "-tags=cortexm,baremetal,linux,arm,rp2040,rp,pico,tinygo,math_big_pure_go,gc.conservative,scheduler.tasks,serial.usb"
+        "GOFLAGS": "-tags=cortexm,baremetal,linux,arm,rp2040,rp,pico,tinygo,math_big_pure_go,gc.conservative,scheduler.tasks,serial.usb,bsizeinches,bucket,anemometer,oled,bme"
     },
 }

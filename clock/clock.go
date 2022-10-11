@@ -1,4 +1,4 @@
-package rtc
+package clock
 
 import (
 	m "machine"
@@ -34,4 +34,15 @@ func FormatTime(rtc *ds1307.Device) (string, error) {
 
 	// println(t.Hour(), ":", t.Minute(), ":", t.Second(), " ", t.Month(), "/", t.Day(), "/", t.Year())
 	return fmt.Sprintf("%v:%v:%v %v/%d/%v", rt.Hour(), rt.Minute(), rt.Second(), rt.Day(), rt.Month(), rt.Year()), nil
+}
+
+func Elapsed(t time.Time) string {
+
+	hour, min, sec := t.Clock()
+	return fmt.Sprintf("Time elapsed: %v:%v:%v", hour, min, sec)
+}
+
+func ExecutionTime(then time.Time) string {
+
+	return fmt.Sprintf("Calculation time:  %v", time.Since(then))
 }

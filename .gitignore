@@ -1,3 +1,4 @@
 types/*_easyjson.go
 build/
 .idea/
+.vscode/.cortex-debug.peripherals.state.json

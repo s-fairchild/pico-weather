@@ -5,10 +5,10 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "preLaunchTask": "debugbuild",
+            "preLaunchTask": "release",
             "cwd": "${workspaceRoot}",
-            "executable": "./build/debug.elf",
-            "objdumpPath": "./build/debug.elf",
+            "executable": "./build/release",
+            "objdumpPath": "./build/release",
             "name": "Debug with OpenOCD",
             "device": "RP2040",
             "request": "launch",
