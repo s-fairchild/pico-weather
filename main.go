@@ -13,6 +13,7 @@ import (
 	"github.com/s-fairchild/pico-weather/components"
 	"github.com/s-fairchild/pico-weather/oled"
 	t "github.com/s-fairchild/pico-weather/types"
+	"github.com/s-fairchild/pico-weather/windvane"
 )
 
 func main() {
@@ -20,13 +21,14 @@ func main() {
 	comms.InitI2c()
 	comms.InitUART()
 	components.LoadEnabled()
+	windVane := windvane.InitWindvane(windvane.R1)
 
 	rt, err := clock.InitRtc(m.GP14, m.GP15)
 	if err != nil {
 		println(err)
 	}
 
-	r := &t.SensorReadings{time.Time{}, &t.Bme280Readings{}, &t.TippingBucket{}}
+	r := &t.SensorReadings{Created: time.Time{}, Bme280: &t.Bme280Readings{}, Rain: &t.TippingBucket{}}
 
 	for true {
 
@@ -66,6 +68,15 @@ func main() {
 			println(err)
 		}
 		fmt.Printf("RTC: %v\n", timeStr)
+
+		windResistance, err := windvane.GetWindDegrees(windVane)
+		if err != nil {
+			println(err)
+			// textLines = append(textLines, err.Error())
+		}
+		wvReading := fmt.Sprintf("Windvane Resistance: %v", windResistance)
+		println(wvReading)
+		textLines = append(textLines, wvReading)
 
 		textLines = append(textLines, timeStr)
 
