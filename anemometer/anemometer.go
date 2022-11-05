@@ -3,8 +3,8 @@
 package anemometer
 
 import (
-	m "machine"
 	"fmt"
+	m "machine"
 )
 
 var spins int
@@ -18,7 +18,7 @@ func Monitor() error {
 		Mode: m.PinInputPullup,
 	})
 
-	err := pin.SetInterrupt(m.PinLevelLow, func (p m.Pin)  {
+	err := pin.SetInterrupt(m.PinChange(m.PinInputPulldown), func(p m.Pin) {
 		spins++
 	})
 	if err != nil {
